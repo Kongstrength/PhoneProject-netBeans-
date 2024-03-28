@@ -343,7 +343,7 @@ JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String collumn=jButton1.getText();
+         String collumn=jButton1.getText();
        Connection conn = null;
       
         try {
@@ -351,8 +351,8 @@ JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
             conn = DriverManager.getConnection(url);
             JOptionPane.showMessageDialog(null, "Connection Sucess");
             
-            String sql = "SELECT * FROM phones WHERE publisher = ?";
-            String  model= jTextField6.getText();//รับ input จาก user
+            String sql = "SELECT * FROM phones WHERE LOWER(publisher) = LOWER(?)";
+            String  model= jTextField6.getText().trim().toLowerCase();//รับ input จาก user
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, model); //เติม ?
             ResultSet rs = stmt.executeQuery(); //ส่ง sql ไปยังฐานข้อมูล และได้ ResultSet rs
@@ -367,7 +367,7 @@ JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
             String[] columnNames ={"Id","Model","Publisher","Price","Warranty"};
             tableModel.setColumnIdentifiers(columnNames);
             while(rs.next()){
-              
+                //int prodcutId = rs.getInt("ProductID");
                 int c1 = rs.getInt("id");
                 String c2 = rs.getString("model");
                 String c3 = rs.getString("publisher");

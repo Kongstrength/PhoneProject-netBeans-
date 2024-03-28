@@ -100,8 +100,8 @@ public class SelectPhone extends javax.swing.JFrame {
             conn = DriverManager.getConnection(url);
             JOptionPane.showMessageDialog(null, "Connection Sucess");
             
-            String sql = "SELECT * FROM phones WHERE publisher = ?";
-            String  model= jTextField1.getText();//รับ input จาก user
+            String sql = "SELECT * FROM phones WHERE LOWER(publisher) = LOWER(?)";
+            String  model= jTextField1.getText().trim().toLowerCase();//รับ input จาก user
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, model); //เติม ?
             ResultSet rs = stmt.executeQuery(); //ส่ง sql ไปยังฐานข้อมูล และได้ ResultSet rs
@@ -113,7 +113,7 @@ public class SelectPhone extends javax.swing.JFrame {
             jTable1.setModel(tableModel);
             //วนลูปบนผลลัพธ์ที่ได้จากฐานข้อมูล
             
-            String[] columnNames ={"Id","publisher","price","warranty"};
+            String[] columnNames ={"Id","Model","Publisher","Price","Warranty"};
             tableModel.setColumnIdentifiers(columnNames);
             while(rs.next()){
                 //int prodcutId = rs.getInt("ProductID");
