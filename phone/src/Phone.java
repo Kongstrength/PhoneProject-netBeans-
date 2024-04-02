@@ -13,6 +13,9 @@ import javax.persistence.*;
     private int price;
     @Column(name = "warranty")
     private int warranty;
+    
+     public Phone() {
+    }
 
     public Phone(int id, String model, String publisher, int price, int warranty) {
         this.id = id;

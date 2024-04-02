@@ -41,7 +41,7 @@ public class DeletePhone extends javax.swing.JFrame {
 
         jLabel1.setText("Delete Phone(ORM)");
 
-        jLabel2.setText("ID");
+        jLabel2.setText("id");
 
         jButton1.setText("Delete");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -65,9 +65,9 @@ public class DeletePhone extends javax.swing.JFrame {
                         .addGap(142, 142, 142)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
+                        .addGap(140, 140, 140)
                         .addComponent(jButton1)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,9 +78,9 @@ public class DeletePhone extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(61, 61, 61)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -88,24 +88,11 @@ public class DeletePhone extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-       Connection conn = null;
-        try {
-            String url = "jdbc:sqlite:northwind.db"; //กำหนด url ของฐานข้อมูล
-            conn = DriverManager.getConnection(url);
-            JOptionPane.showMessageDialog(null, "Connection Sucess");
-            
-            String id = jTextField1.getText().toLowerCase();
-            
-            String sql = "DELETE FROM phones WHERE id = ?"; //นิยาม SQL
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, id);
-            
-            stmt.execute();//ส่ง SQL
-            JOptionPane.showMessageDialog(null, "DELETE Sucess");
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
-        }
+       PhoneDAO dao = new PhoneDAO();
+        int id = Integer.parseInt(jTextField1.getText());
+        
+        dao.deletePhone(id);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

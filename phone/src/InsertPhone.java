@@ -120,56 +120,16 @@ public class InsertPhone extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Connection conn = null;
-
-try {
-
-String url = "jdbc:sqlite:northwind.db"; //กำหนด url ของฐานข้อมูล
-
-conn = DriverManager.getConnection(url);
-
-JOptionPane.showMessageDialog(null, "Connection Sucess");
-
-int id = Integer.parseInt(jTextField1.getText());
-
-String  model= jTextField2.getText();
-
-String publisher = jTextField3.getText();
-
-int price = Integer.parseInt(jTextField4.getText());
-
-int warranty = Integer.parseInt(jTextField5.getText());
-
-
-
-//นิยาม SQL INSERT,DELETE, UPDATE แก้ที่นี้
-
-String sql = "INSERT INTO phones "
-
-+ " (id ,model,publisher,price,warranty)  VALUES (?,?,?,?,?) ";
-
-PreparedStatement stmt = conn.prepareStatement(sql);
-
-stmt.setInt(1, id);
-
-stmt.setString(2, model );
-
-stmt.setString(3,publisher);
-
-stmt.setInt(4,price);
-
-stmt.setInt(5,warranty);
-
-
-
-stmt.execute();//ส่ง SQL
-
-JOptionPane.showMessageDialog(null, "INSERT Sucess");
-
-} catch (SQLException e) {
-
-JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
-}
+         PhoneDAO dao = new PhoneDAO();
+        int id= Integer.parseInt(jTextField1.getText());
+        String model = jTextField2.getText();
+        String publisher = jTextField3.getText();
+        int price = Integer.parseInt(jTextField4.getText());
+        int warranty = Integer.parseInt(jTextField5.getText());
+        
+        Phone newPhone = new Phone(id,model,publisher,price,warranty);
+        dao.addPhone(newPhone);
+        System.out.println("Phone added successfully!");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

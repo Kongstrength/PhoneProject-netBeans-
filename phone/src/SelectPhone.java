@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,12 +15,27 @@ import javax.swing.table.DefaultTableModel;
  * @author kongg
  */
 public class SelectPhone extends javax.swing.JFrame {
-  
+   PhoneDAO dao = new PhoneDAO();
+    String[] columns = {"id","model","publisher","price","warranty" };
  public SelectPhone() {
         initComponents();
+    
+ }
+ public void populateData(List<Object[]> data, String[] columns){
+       DefaultTableModel tableModel = new DefaultTableModel();
+       
+       for (int i= 0; i < columns.length; i++) {
+            tableModel.addColumn(columns[i]);
+        }
+       
+       for(int i=0;i<data.size();i++){
+           Object[] row = data.get(i);
+           tableModel.addRow(row );
+       }
+       
+       jTable1.setModel(tableModel);
+
     }
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,44 +108,12 @@ public class SelectPhone extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String collumn=jButton1.getText();
-       Connection conn = null;
-      
-        try {
-            String url = "jdbc:sqlite:northwind.db"; //กำหนด url ของฐานข้อมูล
-            conn = DriverManager.getConnection(url);
-            JOptionPane.showMessageDialog(null, "Connection Sucess");
-            
-            String sql = "SELECT * FROM phones WHERE LOWER(publisher) = LOWER(?)";
-            String  model= jTextField1.getText().trim().toLowerCase();//รับ input จาก user
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, model); //เติม ?
-            ResultSet rs = stmt.executeQuery(); //ส่ง sql ไปยังฐานข้อมูล และได้ ResultSet rs
-           
-           //แสดง ResultSet  บน Table  
-            //Reset ข้อมูล ในตาราง   
-            DefaultTableModel tableModel = new DefaultTableModel();
-            tableModel.setColumnCount(5); //แก้เลข 6
-            jTable1.setModel(tableModel);
-            //วนลูปบนผลลัพธ์ที่ได้จากฐานข้อมูล
-            
-            String[] columnNames ={"Id","Model","Publisher","Price","Warranty"};
-            tableModel.setColumnIdentifiers(columnNames);
-            while(rs.next()){
-                //int prodcutId = rs.getInt("ProductID");
-                int c1 = rs.getInt("id");
-                String c2 = rs.getString("model");
-                String c3 = rs.getString("publisher");
-                int c4 = rs.getInt("price");
-               int  c5 = rs.getInt("warranty");
-                
-               //สร้างแถว
-               Object[] row = {c1,c2,c3,c4,c5};
-               //เพิ่มแถวเข้าไปใน ตาราง
-               tableModel.addRow(row);
-            }
-             
-        } catch (SQLException e) {
+         try{
+        String publisher =(jTextField1.getText());
+        List<Object[]> phones = dao.getPhonesByPublisher(publisher, Object[].class);
+        
+        populateData(phones, columns);
+        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
         }
         // TODO add your handling code here:

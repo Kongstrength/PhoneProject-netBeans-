@@ -142,42 +142,15 @@ public class UpdatePhone extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-            Connection conn = null;
-            
-        try {
-            String url = "jdbc:sqlite:northwind.db"; //กำหนด url ของฐานข้อมูล
-            conn = DriverManager.getConnection(url);
-            JOptionPane.showMessageDialog(null, "Connection Sucess");
-            int id = Integer.parseInt(jTextField1.getText());
-            String model = jTextField2.getText();
-            String publisher = jTextField3.getText();
-            int price = Integer.parseInt(jTextField4.getText());
-            int  warranty = Integer.parseInt(jTextField5.getText());
-            
-           
-            
-            //นิยาม SQL INSERT,DELETE, UPDATE แก้ที่นี้
-            String sql =  "UPDATE phones SET"
-                           + " model = ?, "
-                           + " publisher = ?, "    
-                           + " price = ?, "    
-                           + " warranty= ? "                      
-                           + " WHERE id = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(5, id);
-            stmt.setString(1, model);
-            stmt.setString(2, publisher);   
-            stmt.setInt(3, price);
-            stmt.setInt(4, warranty);
+       PhoneDAO dao = new PhoneDAO();
+        int id= Integer.parseInt(jTextField1.getText());
+        String model = jTextField2.getText();
+        String publisher = jTextField3.getText();
+        int price = Integer.parseInt(jTextField4.getText());
+        int warranty = Integer.parseInt(jTextField5.getText());
         
-            
-            stmt.execute();//ส่ง SQL
-            JOptionPane.showMessageDialog(null, "Update Sucess");
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
-        }
+        Phone up = new Phone(id,model,publisher,price,warranty);
+        dao.updatePhone(up);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
