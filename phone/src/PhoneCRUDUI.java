@@ -233,7 +233,7 @@ public class PhoneCRUDUI extends javax.swing.JFrame {
 
 try {
 
-String url = "jdbc:sqlite:northwind.db"; //กำหนด url ของฐานข้อมูล
+String url = "jdbc:sqlite:Phone.db"; //กำหนด url ของฐานข้อมูล
 
 conn = DriverManager.getConnection(url);
 
@@ -284,7 +284,7 @@ JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Connection conn = null;
         try {
-            String url = "jdbc:sqlite:northwind.db"; //กำหนด url ของฐานข้อมูล
+            String url = "jdbc:sqlite:Phone.db"; //กำหนด url ของฐานข้อมูล
             conn = DriverManager.getConnection(url);
             JOptionPane.showMessageDialog(null, "Connection Sucess");
             
@@ -306,7 +306,7 @@ JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
       // TODO add your handling code here:
             Connection conn = null;
         try {
-            String url = "jdbc:sqlite:northwind.db"; //กำหนด url ของฐานข้อมูล
+            String url = "jdbc:sqlite:Phone.db"; //กำหนด url ของฐานข้อมูล
             conn = DriverManager.getConnection(url);
             JOptionPane.showMessageDialog(null, "Connection Sucess");
             int id = Integer.parseInt(jTextField1.getText());
@@ -345,7 +345,7 @@ JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
        Connection conn = null;
       
         try {
-            String url = "jdbc:sqlite:northwind.db"; //กำหนด url ของฐานข้อมูล
+            String url = "jdbc:sqlite:Phone.db"; //กำหนด url ของฐานข้อมูล
             conn = DriverManager.getConnection(url);
             JOptionPane.showMessageDialog(null, "Connection Sucess");
             
