@@ -358,7 +358,7 @@ JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
            //แสดง ResultSet  บน Table  
             //Reset ข้อมูล ในตาราง   
             DefaultTableModel tableModel = new DefaultTableModel();
-            tableModel.setColumnCount(5); 
+            tableModel.setColumnCount(5); //แก้เลข 6
             jTable1.setModel(tableModel);
             //วนลูปบนผลลัพธ์ที่ได้จากฐานข้อมูล
             
